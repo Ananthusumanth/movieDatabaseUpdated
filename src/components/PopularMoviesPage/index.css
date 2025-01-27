@@ -1,0 +1,95 @@
+.popular-container {
+  background-color: rgb(20, 17, 17);
+  color: white;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 5px;
+}
+.popular-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+.popular-poster-body {
+  margin-left: 10px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  background-color: rgb(23, 22, 22);
+  border-radius: 5px;
+  width: 300px;
+}
+.posterImage {
+  width: 100%;
+  border-radius: 5px;
+}
+
+.loader-container {
+  background-color: rgb(20, 17, 17);
+  color: white;
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.failureButton {
+  background-color: green;
+  border: none;
+  color: rgb(17, 17, 91);
+  padding: 15px;
+  border-radius: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Georgia;
+}
+.title {
+  font-size: 10px;
+  margin-left: 10px;
+}
+.viewDetails {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-left: 10px;
+}
+.viewDetailsButton {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: green;
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+  .posterImage {
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+  }
+  .popular-poster-body {
+    margin-left: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: rgb(23, 22, 22);
+    border-radius: 5px;
+    width: 180px;
+    height: 280px;
+  }
+}

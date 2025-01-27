@@ -1,0 +1,63 @@
+.header-container {
+  height: 10vh;
+  background-color: #141b3a;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.headerSection1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.button {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-family: Georgia;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.main-Logo {
+  font-size: 25px;
+  font-family: Georgia;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+.Search {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .main-Logo {
+    font-size: 20px;
+    font-family: Georgia;
+    color: red;
+    font-weight: bold;
+  }
+  .button {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 13px;
+    font-family: Georgia;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 5px;
+    cursor: pointer;
+  }
+}

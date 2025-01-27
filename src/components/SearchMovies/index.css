@@ -1,0 +1,127 @@
+.Search-headerSection1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #141b3a;
+  padding-left: 20px;
+  height: 10vh;
+}
+.search-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  background-color: rgb(17, 16, 16);
+}
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 50%;
+  background-color: green;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+.search-body-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 83vh;
+  color: white;
+}
+.search-body-data {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.input {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.search-icon {
+  margin-right: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: blue;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Georgia;
+}
+.search-loader-container {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.search-posterImage {
+  width: 100%;
+}
+.search-popular-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.serch-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.serch-header-small {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .serch-header {
+    display: none;
+  }
+  .serch-header-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: black;
+    color: white;
+  }
+  .searchBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    width: 70%;
+    background-color: green;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .search-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    background-color: rgb(17, 16, 16);
+    padding-top: 10px;
+  }
+}
