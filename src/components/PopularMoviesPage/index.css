@@ -1,7 +1,7 @@
 .popular-container {
   background-color: rgb(20, 17, 17);
   color: white;
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,7 +26,7 @@
   align-items: flex-start;
   background-color: rgb(23, 22, 22);
   border-radius: 5px;
-  width: 300px;
+  width: 200px;
 }
 .posterImage {
   width: 100%;
@@ -36,7 +36,7 @@
 .loader-container {
   background-color: rgb(20, 17, 17);
   color: white;
-  min-height: 90vh;
+  min-height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -72,6 +72,14 @@
   font-weight: bold;
   font-size: 13px;
   margin-right: 20px;
+}
+.pagination {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: black;
+  min-height: 10vh;
 }
 
 @media (max-width: 768px) {

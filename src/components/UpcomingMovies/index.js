@@ -18,7 +18,7 @@ const UpcomingMovies = () => {
     upcomingData: null,
   })
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(4)
+  const [postPerPage, setpostPerPage] = useState(6)
 
   useEffect(() => {
     setUpComing({state: apiContentResponse.in_progress})
@@ -71,7 +71,7 @@ const UpcomingMovies = () => {
             <div className="popular-poster-body" key={each.id}>
               <img
                 src={`https://image.tmdb.org/t/p/w500/${each.poster_path}`}
-                alt="poster"
+                alt="upcoming-poster"
                 className="posterImage"
               />
               <h1 className="title">{each.title}</h1>
@@ -86,12 +86,6 @@ const UpcomingMovies = () => {
             </div>
           ))}
         </div>
-        <Pagination
-          totalposts={upcoming.upcomingData.length}
-          postPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
       </div>
     )
   }
@@ -110,10 +104,26 @@ const UpcomingMovies = () => {
     }
   }
 
+  const totalpostsLength = () => {
+    if (upcoming.upcomingData === null || upcoming.upcomingData === undefined) {
+      return 1
+    } else {
+      return upcoming.upcomingData.length
+    }
+  }
+
   return (
     <>
       <Header />
       {renderResponse()}
+      <div className="pagination">
+        <Pagination
+          totalposts={totalpostsLength()}
+          postPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
     </>
   )
 }

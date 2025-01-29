@@ -16,7 +16,7 @@ const CastMovieDetails = props => {
     castMovieData: null,
   })
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(4)
+  const [postPerPage, setpostPerPage] = useState(6)
 
   useEffect(() => {
     setCastMovie({state: apiContentResponse.in_progress})
@@ -72,7 +72,7 @@ const CastMovieDetails = props => {
               <img
                 className="profileImg"
                 src={`https://image.tmdb.org/t/p/w500/${each.profile_path}`}
-                alt="poster"
+                alt="cast-profile"
               />
               <div>
                 <p className="names">

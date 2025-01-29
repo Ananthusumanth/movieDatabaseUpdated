@@ -18,7 +18,7 @@ const PopularMoviesPage = () => {
     popularData: null,
   })
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(4)
+  const [postPerPage, setpostPerPage] = useState(6)
 
   useEffect(() => {
     setPopular({state: apiContentResponse.in_progress})
@@ -68,7 +68,7 @@ const PopularMoviesPage = () => {
             <div className="popular-poster-body" key={each.id}>
               <img
                 src={`https://image.tmdb.org/t/p/w500/${each.poster_path}`}
-                alt="poster"
+                alt="popular-poster"
                 className="posterImage"
               />
               <h1 className="title">{each.title}</h1>
@@ -83,12 +83,6 @@ const PopularMoviesPage = () => {
             </div>
           ))}
         </div>
-        <Pagination
-          totalposts={popular.popularData.length}
-          postPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
       </div>
     )
   }
@@ -107,10 +101,26 @@ const PopularMoviesPage = () => {
     }
   }
 
+  const totalpostsLength = () => {
+    if (popular.popularData === null || popular.popularData === undefined) {
+      return 1
+    } else {
+      return popular.popularData.length
+    }
+  }
+
   return (
     <>
       <Header />
       {renderResponse()}
+      <div className="pagination">
+        <Pagination
+          totalposts={totalpostsLength()}
+          postPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
     </>
   )
 }

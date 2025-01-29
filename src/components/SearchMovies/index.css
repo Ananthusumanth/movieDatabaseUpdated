@@ -12,7 +12,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  min-height: 80vh;
   background-color: rgb(17, 16, 16);
 }
 .searchBar {
@@ -31,7 +31,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 83vh;
+  min-height: 73.8vh;
   color: white;
 }
 .search-body-data {
@@ -66,7 +66,7 @@
   font-family: Georgia;
 }
 .search-loader-container {
-  height: 80vh;
+  height: 73.8vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -120,7 +120,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 85vh;
+    min-height: 73.8vh;
     background-color: rgb(17, 16, 16);
     padding-top: 10px;
   }

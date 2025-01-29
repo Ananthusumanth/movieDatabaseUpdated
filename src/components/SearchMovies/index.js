@@ -19,7 +19,7 @@ const SearchMovies = () => {
   const [searchText, setSearchText] = useState('')
   const [searchValue, setSearchValue] = useState('')
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(4)
+  const [postPerPage, setpostPerPage] = useState(6)
 
   useEffect(() => {
     setSearchMovie({state: apiContentResponse.initial})
@@ -89,7 +89,7 @@ const SearchMovies = () => {
               <div className="popular-poster-body" key={each.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500/${each.poster_path}`}
-                  alt="poster"
+                  alt="search-poster"
                   className="posterImage"
                 />
                 <h1 className="title">{each.title}</h1>
@@ -105,12 +105,6 @@ const SearchMovies = () => {
             ))
           )}
         </div>
-        <Pagination
-          totalposts={searchMovie.searchMovieData.length}
-          postPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
       </>
     )
   }
@@ -133,6 +127,17 @@ const SearchMovies = () => {
     }
   }
 
+  const totalpostsLength = () => {
+    if (
+      searchMovie.searchMovieData === null ||
+      searchMovie.searchMovieData === undefined
+    ) {
+      return 1
+    } else {
+      return searchMovie.searchMovieData.length
+    }
+  }
+
   return (
     <>
       <div className="Search-headerSection1">
@@ -150,7 +155,7 @@ const SearchMovies = () => {
         </div>
         <div className="searchBar">
           <input
-            type="search"
+            role="textbox"
             className="input"
             value={searchText}
             onChange={searchChange}
@@ -173,6 +178,14 @@ const SearchMovies = () => {
       </div>
       <div className="search-body">
         <div className="search-body-container">{renderResponse()}</div>
+      </div>
+      <div className="pagination">
+        <Pagination
+          totalposts={totalpostsLength()}
+          postPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
       </div>
     </>
   )
