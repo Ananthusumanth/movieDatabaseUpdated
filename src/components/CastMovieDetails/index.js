@@ -29,7 +29,7 @@ const CastMovieDetails = props => {
     const response = await fetch(url2)
     if (response.ok) {
       const data = await response.json()
-      console.log(data.cast)
+      // console.log(data.cast)
       setCastMovie({
         castMovieData: data.cast,
         state: apiContentResponse.success,
@@ -71,7 +71,7 @@ const CastMovieDetails = props => {
             <div className="castViewDetails" key={each.id}>
               <img
                 className="profileImg"
-                src={`https://image.tmdb.org/t/p/w500/${each.profile_path}`}
+                src={`https://image.tmdb.org/t/p/w500${each.profile_path}`}
                 alt="cast-profile"
               />
               <div>

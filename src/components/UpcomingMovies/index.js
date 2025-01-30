@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
-import Header from '../Header'
 import Pagination from '../Pagination'
 import './index.css'
 
@@ -19,6 +18,7 @@ const UpcomingMovies = () => {
   })
   const [currentPage, setCurrentPage] = useState(1)
   const [postPerPage, setpostPerPage] = useState(6)
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
     setUpComing({state: apiContentResponse.in_progress})
@@ -47,6 +47,25 @@ const UpcomingMovies = () => {
     }
   }
 
+  const searchDataResult = async () => {
+    setUpComing({state: apiContentResponse.in_progress})
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=1`
+    const response = await fetch(url)
+    if (response.ok) {
+      const data = await response.json()
+      setUpComing({
+        upcomingData: data.results,
+        state: apiContentResponse.success,
+      })
+    } else {
+      setUpComing({state: apiContentResponse.isFailed})
+    }
+  }
+
+  const searchChange = event => {
+    setSearchText(event.target.value)
+  }
+
   const isloadingView = () => (
     <div className="loader-container" data-testid="loader">
       <Loader type="ThreeDots" color="green" height={30} wight={50} />
@@ -67,24 +86,28 @@ const UpcomingMovies = () => {
     return (
       <div className="popular-container">
         <div className="popular-body">
-          {currentPosts.map(each => (
-            <div className="popular-poster-body" key={each.id}>
-              <img
-                src={`https://image.tmdb.org/t/p/w500/${each.poster_path}`}
-                alt="upcoming-poster"
-                className="posterImage"
-              />
-              <h1 className="title">{each.title}</h1>
-              <div className="viewDetails">
-                <Link to={`/movie/${each.id}`}>
-                  <button type="button" className="viewDetailsButton">
-                    View Details
-                  </button>
-                </Link>
-                <p>{each.vote_average}</p>
+          {upcoming.upcomingData.length === 0 ? (
+            <p>{`Not find data for ${searchText}`}</p>
+          ) : (
+            currentPosts.map(each => (
+              <div className="popular-poster-body" key={each.id}>
+                <img
+                  src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
+                  alt="upcoming-poster"
+                  className="posterImage"
+                />
+                <h1 className="title">{each.title}</h1>
+                <div className="viewDetails">
+                  <Link to={`/movie/${each.id}`}>
+                    <button type="button" className="viewDetailsButton">
+                      View Details
+                    </button>
+                  </Link>
+                  <p>{each.vote_average}</p>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     )
@@ -114,7 +137,47 @@ const UpcomingMovies = () => {
 
   return (
     <>
-      <Header />
+      <div className="Search-headerSection1">
+        <h1 className="main-Logo">movieDB</h1>
+        <div className="serch-header">
+          <Link to="/">
+            <h1 className="main-heading">Popular</h1>
+          </Link>
+          <Link to="/top-rated">
+            <h1 className="main-heading">Top Rated</h1>
+          </Link>
+          <Link to="/upcoming">
+            <h1 className="main-heading">Upcoming</h1>
+          </Link>
+        </div>
+        <div className="searchBar">
+          <input
+            role="textbox"
+            type="search"
+            className="input"
+            value={searchText}
+            onChange={searchChange}
+          />
+          <button
+            type="button"
+            className="search-icon"
+            onClick={searchDataResult}
+          >
+            Search
+          </button>
+        </div>
+      </div>
+      <div className="serch-header-small">
+        <Link to="/">
+          <h1 className="main-heading">Popular</h1>
+        </Link>
+        <Link to="/top-rated">
+          <h1 className="main-heading">Top Rated</h1>
+        </Link>
+        <Link to="/upcoming">
+          <h1 className="main-heading">Upcoming</h1>
+        </Link>
+      </div>
       {renderResponse()}
       <div className="pagination">
         <Pagination

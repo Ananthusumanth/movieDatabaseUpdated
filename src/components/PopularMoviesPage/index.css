@@ -82,6 +82,100 @@
   min-height: 10vh;
 }
 
+.Search-headerSection1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #141b3a;
+  padding-left: 20px;
+  height: 10vh;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 5vh;
+  width: 50%;
+  background-color: green;
+  margin-right: 10px;
+  border-radius: 5px;
+}
+
+.input {
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: black;
+  border: none;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+}
+.search-icon {
+  margin-right: 5px;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background-color: blue;
+  border: none;
+  cursor: pointer;
+  color: white;
+  border-radius: 5px;
+  font-size: 15px;
+  font-weight: bold;
+  font-family: Georgia;
+}
+.search-loader-container {
+  height: 73.8vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.search-posterImage {
+  width: 100%;
+}
+.search-popular-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.serch-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 30%;
+}
+.serch-header-small {
+  display: none;
+}
+.main-heading {
+  background-color: transparent;
+  color: white;
+  border: none;
+  font-size: 16px;
+  font-family: Georgia;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+.main-Logo {
+  font-size: 25px;
+  font-family: Georgia;
+  color: red;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* ************************************************************************************************ */
+
 @media (max-width: 768px) {
   .posterImage {
     width: 180px;
@@ -99,5 +193,44 @@
     border-radius: 5px;
     width: 180px;
     height: 280px;
+  }
+  .serch-header {
+    display: none;
+  }
+  .serch-header-small {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: black;
+    color: white;
+  }
+  .searchBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 5vh;
+    width: 70%;
+    background-color: green;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  .main-Logo {
+    font-size: 20px;
+    font-family: Georgia;
+    color: red;
+    font-weight: bold;
+  }
+  .main-heading {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 13px;
+    font-family: Georgia;
+    font-weight: bold;
+    margin-left: 10px;
+    margin-right: 5px;
+    cursor: pointer;
   }
 }
