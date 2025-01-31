@@ -126,7 +126,7 @@ const PopularMoviesPage = () => {
 
   const totalpostsLength = () => {
     if (popular.popularData === null || popular.popularData === undefined) {
-      return 1
+      return 0
     } else {
       return popular.popularData.length
     }
@@ -136,7 +136,7 @@ const PopularMoviesPage = () => {
     <>
       <div className="Search-headerSection1">
         <h1 className="main-Logo">movieDB</h1>
-        <div className="serch-header">
+        <div className="search-header">
           <Link to="/">
             <h1 className="main-heading">Popular</h1>
           </Link>
@@ -163,17 +163,6 @@ const PopularMoviesPage = () => {
             Search
           </button>
         </div>
-      </div>
-      <div className="serch-header-small">
-        <Link to="/">
-          <h1 className="main-heading">Popular</h1>
-        </Link>
-        <Link to="/top-rated">
-          <h1 className="main-heading">Top Rated</h1>
-        </Link>
-        <Link to="/upcoming">
-          <h1 className="main-heading">Upcoming</h1>
-        </Link>
       </div>
       {renderResponse()}
       <div className="pagination">

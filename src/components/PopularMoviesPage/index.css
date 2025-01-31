@@ -145,16 +145,16 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.serch-header {
+.search-header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 30%;
 }
-.serch-header-small {
+/* .search-header-small {
   display: none;
-}
+} */
 .main-heading {
   background-color: transparent;
   color: white;
@@ -194,10 +194,10 @@
     width: 180px;
     height: 280px;
   }
-  .serch-header {
+  /* .search-header {
     display: none;
-  }
-  .serch-header-small {
+  } */
+  .search-header-small {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -210,23 +210,43 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 5vh;
-    width: 70%;
+    height: 4.5vh;
+    width: 50%;
     background-color: green;
     border-radius: 5px;
     margin-right: 10px;
   }
+  .search-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 25%;
+  }
+  .search-icon {
+    margin-right: 5px;
+    padding: 5px;
+    background-color: blue;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    font-family: Georgia;
+  }
   .main-Logo {
-    font-size: 20px;
+    font-size: 15px;
     font-family: Georgia;
     color: red;
     font-weight: bold;
+    width: 10%;
   }
   .main-heading {
     background-color: transparent;
     color: white;
     border: none;
-    font-size: 13px;
+    font-size: 7px;
     font-family: Georgia;
     font-weight: bold;
     margin-left: 10px;

@@ -65,7 +65,7 @@ const CastMovieDetails = props => {
 
   const successView = () => {
     return (
-      <div className="sectionPagi">
+      <>
         <div className="cardDetails">
           {currentPosts.map(each => (
             <div className="castViewDetails" key={each.id}>
@@ -93,7 +93,7 @@ const CastMovieDetails = props => {
             currentPage={currentPage}
           />
         </div>
-      </div>
+      </>
     )
   }
 

@@ -1,5 +1,4 @@
 .cast-loader-container {
-  height: 20vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -20,6 +19,7 @@
   justify-content: space-around;
   align-items: center;
   flex-wrap: wrap;
+  padding: 10px;
 }
 .castViewDetails {
   background-color: green;
@@ -27,15 +27,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 200px;
-  height: 160px;
+  width: 210px;
+  height: 143px;
+  margin-right: 10px;
   border-radius: 10px;
   padding: 10px;
-  margin-bottom: 10px;
-}
-.sectionPagi {
-  display: flex;
-  flex-direction: column;
 }
 .paginationDiv {
   display: flex;
