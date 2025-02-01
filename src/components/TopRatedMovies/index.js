@@ -19,6 +19,7 @@ const TopRatedMovies = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [postPerPage, setpostPerPage] = useState(6)
   const [searchText, setSearchText] = useState('')
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
     setTopRated({state: apiContentResponse.in_progress})
@@ -33,8 +34,7 @@ const TopRatedMovies = () => {
   }
 
   const getTopRatedApi = async () => {
-    const url =
-      'https://api.themoviedb.org/3/movie/top_rated?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=1'
+    const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=${currentPage}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
@@ -48,8 +48,9 @@ const TopRatedMovies = () => {
   }
 
   const searchDataResult = async () => {
+    setSearchValue(searchText)
     setTopRated({state: apiContentResponse.in_progress})
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=1`
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=${currentPage}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
@@ -87,7 +88,9 @@ const TopRatedMovies = () => {
       <div className="popular-container">
         <div className="popular-body">
           {topRated.topRatedData.length === 0 ? (
-            <p>{`Not find data for ${searchText}`}</p>
+            <p>{`Not find data for ${
+              searchValue === '' ? '....Nothing.....' : searchValue
+            }`}</p>
           ) : (
             currentPosts.map(each => (
               <div className="popular-poster-body" key={each.id}>
@@ -129,7 +132,7 @@ const TopRatedMovies = () => {
 
   const totalpostsLength = () => {
     if (topRated.topRatedData === null || topRated.topRatedData === undefined) {
-      return 0
+      return 1
     } else {
       return topRated.topRatedData.length
     }
@@ -168,14 +171,20 @@ const TopRatedMovies = () => {
         </div>
       </div>
       {renderResponse()}
-      <div className="pagination">
-        <Pagination
-          totalposts={totalpostsLength()}
-          postPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
+      {topRated.topRatedData === null ||
+      topRated.topRatedData === undefined ||
+      topRated.topRatedData.length === 0 ? (
+        <div className="pagination"></div>
+      ) : (
+        <div className="pagination">
+          <Pagination
+            totalposts={totalpostsLength()}
+            postPerPage={postPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </>
   )
 }

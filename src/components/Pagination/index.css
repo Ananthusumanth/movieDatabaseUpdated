@@ -1,30 +1,44 @@
-.active {
+.pagination-container {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.currentPage {
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Roboto;
+}
+.prevNextButton {
   border: none;
   background-color: green;
   color: white;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Roboto;
   border-radius: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  font-size: 12px;
-  font-weight: bold;
-  font-family: Roboto;
-  margin-right: 10px;
+  cursor: pointer;
 }
-.inActive {
+.prevNextButtonOver {
   border: none;
+  background-color: gray;
   color: white;
-  background-color: transparent;
-  padding-left: 10px;
-  padding-right: 10px;
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
   font-size: 12px;
   font-weight: bold;
   font-family: Roboto;
-  margin-right: 10px;
-}
-.pagination-container {
-  margin-bottom: 20px;
+  border-radius: 5px;
+  opacity: 0.5;
+  cursor: not-allowed;
 }

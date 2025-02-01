@@ -19,6 +19,7 @@ const PopularMoviesPage = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [postPerPage, setpostPerPage] = useState(6)
   const [searchText, setSearchText] = useState('')
+  const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
     setPopular({state: apiContentResponse.in_progress})
@@ -33,8 +34,7 @@ const PopularMoviesPage = () => {
   }
 
   const getPopularApi = async () => {
-    const url =
-      'https://api.themoviedb.org/3/movie/popular?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=1'
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=${currentPage}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
@@ -45,8 +45,9 @@ const PopularMoviesPage = () => {
   }
 
   const searchDataResult = async () => {
+    setSearchValue(searchText)
     setPopular({state: apiContentResponse.in_progress})
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=1`
+    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=${currentPage}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
@@ -84,7 +85,9 @@ const PopularMoviesPage = () => {
       <div className="popular-container">
         <div className="popular-body">
           {popular.popularData.length === 0 ? (
-            <p>{`Not find data for ${searchText}`}</p>
+            <p>{`Not find data for ${
+              searchValue === '' ? '.....Nothing.....' : searchValue
+            }`}</p>
           ) : (
             currentPosts.map(each => (
               <div className="popular-poster-body" key={each.id}>
@@ -126,7 +129,7 @@ const PopularMoviesPage = () => {
 
   const totalpostsLength = () => {
     if (popular.popularData === null || popular.popularData === undefined) {
-      return 0
+      return 1
     } else {
       return popular.popularData.length
     }
@@ -165,14 +168,20 @@ const PopularMoviesPage = () => {
         </div>
       </div>
       {renderResponse()}
-      <div className="pagination">
-        <Pagination
-          totalposts={totalpostsLength()}
-          postPerPage={postPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-        />
-      </div>
+      {popular.popularData === null ||
+      popular.popularData === undefined ||
+      popular.popularData.length === 0 ? (
+        <div className="pagination"></div>
+      ) : (
+        <div className="pagination">
+          <Pagination
+            totalposts={totalpostsLength()}
+            postPerPage={postPerPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
+          />
+        </div>
+      )}
     </>
   )
 }

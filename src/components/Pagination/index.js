@@ -2,26 +2,35 @@ import './index.css'
 
 const Pagination = props => {
   const {totalposts, postPerPage, setCurrentPage, currentPage} = props
-  let pages = []
-
-  for (let i = 1; i <= Math.ceil(totalposts / postPerPage); i++) {
-    pages.push(i)
-  }
+  const currentPagePrev = currentPage === 1 ? 1 : currentPage - 1
+  const currentPageNext =
+    currentPage === Math.ceil(totalposts / postPerPage)
+      ? Math.ceil(totalposts / postPerPage)
+      : currentPage + 1
 
   return (
     <div className="pagination-container">
-      {pages.map((each, index) => {
-        return (
-          <button
-            type="button"
-            className={each === currentPage ? 'active' : 'inActive'}
-            onClick={() => setCurrentPage(each)}
-            key={index}
-          >
-            {each}
-          </button>
-        )
-      })}
+      <button
+        type="button"
+        disabled={currentPage === 1}
+        className={currentPage === 1 ? 'prevNextButtonOver' : 'prevNextButton'}
+        onClick={() => setCurrentPage(currentPagePrev)}
+      >
+        Prev
+      </button>
+      <p className="currentPage">{currentPage}</p>
+      <button
+        type="button"
+        disabled={currentPage === Math.ceil(totalposts / postPerPage)}
+        className={
+          currentPage === Math.ceil(totalposts / postPerPage)
+            ? 'prevNextButtonOver'
+            : 'prevNextButton'
+        }
+        onClick={() => setCurrentPage(currentPageNext)}
+      >
+        Next
+      </button>
     </div>
   )
 }

@@ -1,6 +1,6 @@
 .MoviesDetailsSection {
   width: 100%;
-  height: 70vh;
+  height: 68vh;
 }
 .Movie-details {
   margin: 10px;
@@ -18,7 +18,7 @@
   color: white;
 }
 .CastDetailsSection {
-  min-height: 30vh;
+  min-height: 28vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
