@@ -68,16 +68,16 @@ const TopRatedMovies = () => {
   }
 
   const isloadingView = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="green" height={30} wight={50} />
+    <div className='loader-container' data-testid='loader'>
+      <Loader type='ThreeDots' color='green' height={30} wight={50} />
     </div>
   )
 
   const isfailureView = () => (
-    <div className="loader-container">
+    <div className='loader-container'>
       <h1>Something went Wrong!</h1>
       <p>Sorry, we cannot get data</p>
-      <button type="button" className="failureButton">
+      <button type='button' className='failureButton'>
         Try Again
       </button>
     </div>
@@ -85,24 +85,24 @@ const TopRatedMovies = () => {
 
   const successView = () => {
     return (
-      <div className="popular-container">
-        <div className="popular-body">
+      <div className='popular-container'>
+        <div className='popular-body'>
           {topRated.topRatedData.length === 0 ? (
             <p>{`Not find data for ${
               searchValue === '' ? '....Nothing.....' : searchValue
             }`}</p>
           ) : (
             currentPosts.map(each => (
-              <div className="popular-poster-body" key={each.id}>
+              <div className='popular-poster-body' key={each.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
-                  alt="top-rated"
-                  className="posterImage"
+                  alt='top-rated'
+                  className='posterImage'
                 />
-                <h1 className="title">{each.title}</h1>
-                <div className="viewDetails">
+                <h1 className='title'>{each.title}</h1>
+                <div className='viewDetails'>
                   <Link to={`/movie/${each.id}`}>
-                    <button type="button" className="viewDetailsButton">
+                    <button type='button' className='viewDetailsButton'>
                       View Details
                     </button>
                   </Link>
@@ -140,30 +140,30 @@ const TopRatedMovies = () => {
 
   return (
     <>
-      <div className="Search-headerSection1">
-        <h1 className="main-Logo">movieDB</h1>
-        <div className="search-header">
-          <Link to="/">
-            <h1 className="main-heading">Popular</h1>
+      <div className='Search-headerSection1'>
+        <h1 className='main-Logo'>movieDB</h1>
+        <div className='search-header'>
+          <Link to='/'>
+            <h1 className='main-heading'>Popular</h1>
           </Link>
-          <Link to="/top-rated">
-            <h1 className="main-heading">Top Rated</h1>
+          <Link to='/top-rated'>
+            <h1 className='main-heading'>Top Rated</h1>
           </Link>
-          <Link to="/upcoming">
-            <h1 className="main-heading">Upcoming</h1>
+          <Link to='/upcoming'>
+            <h1 className='main-heading'>Upcoming</h1>
           </Link>
         </div>
-        <div className="searchBar">
+        <div className='searchBar'>
           <input
-            role="textbox"
-            type="search"
-            className="input"
+            role='textbox'
+            type='search'
+            className='input'
             value={searchText}
             onChange={searchChange}
           />
           <button
-            type="button"
-            className="search-icon"
+            type='button'
+            className='search-icon'
             onClick={searchDataResult}
           >
             Search
@@ -171,20 +171,14 @@ const TopRatedMovies = () => {
         </div>
       </div>
       {renderResponse()}
-      {topRated.topRatedData === null ||
-      topRated.topRatedData === undefined ||
-      topRated.topRatedData.length === 0 ? (
-        <div className="pagination"></div>
-      ) : (
-        <div className="pagination">
-          <Pagination
-            totalposts={totalpostsLength()}
-            postPerPage={postPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </div>
-      )}
+      <div className='pagination'>
+        <Pagination
+          totalposts={totalpostsLength()}
+          postPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
     </>
   )
 }

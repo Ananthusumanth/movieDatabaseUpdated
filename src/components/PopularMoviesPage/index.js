@@ -168,21 +168,16 @@ const PopularMoviesPage = () => {
         </div>
       </div>
       {renderResponse()}
-      {popular.popularData === null ||
-      popular.popularData === undefined ||
-      popular.popularData.length === 0 ? (
-        <div className="pagination"></div>
-      ) : (
-        <div className="pagination">
-          <Pagination
-            totalposts={totalpostsLength()}
-            postPerPage={postPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </div>
-      )}
+      <div className="pagination">
+        <Pagination
+          totalposts={totalpostsLength()}
+          postPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
     </>
   )
 }
 export default PopularMoviesPage
+
