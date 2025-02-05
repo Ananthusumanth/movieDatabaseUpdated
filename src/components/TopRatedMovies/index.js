@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import Pagination from '../Pagination'
+import Header from '../Header'
 import './index.css'
 
 const apiContentResponse = {
@@ -14,11 +15,10 @@ const apiContentResponse = {
 const TopRatedMovies = () => {
   const [topRated, setTopRated] = useState({
     state: apiContentResponse.initial,
-    topRatedData: null,
   })
   const [currentPage, setCurrentPage] = useState(1)
   const [postPerPage, setpostPerPage] = useState(6)
-  const [searchText, setSearchText] = useState('')
+  const [topRatedData, settopRatedData] = useState(null)
   const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
@@ -29,8 +29,8 @@ const TopRatedMovies = () => {
   const lastPostIndex = currentPage * postPerPage
   const firstPostIndex = lastPostIndex - postPerPage
   let currentPosts
-  if (topRated.topRatedData !== undefined && topRated.topRatedData !== null) {
-    currentPosts = topRated.topRatedData.slice(firstPostIndex, lastPostIndex)
+  if (topRatedData !== undefined && topRatedData !== null) {
+    currentPosts = topRatedData.slice(firstPostIndex, lastPostIndex)
   }
 
   const getTopRatedApi = async () => {
@@ -38,46 +38,26 @@ const TopRatedMovies = () => {
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
+      settopRatedData(data.results)
       setTopRated({
-        topRatedData: data.results,
         state: apiContentResponse.success,
       })
     } else {
       setTopRated({state: apiContentResponse.isFailed})
     }
-  }
-
-  const searchDataResult = async () => {
-    setSearchValue(searchText)
-    setTopRated({state: apiContentResponse.in_progress})
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=${currentPage}`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data = await response.json()
-      setTopRated({
-        topRatedData: data.results,
-        state: apiContentResponse.success,
-      })
-    } else {
-      setTopRated({state: apiContentResponse.isFailed})
-    }
-  }
-
-  const searchChange = event => {
-    setSearchText(event.target.value)
   }
 
   const isloadingView = () => (
-    <div className='loader-container' data-testid='loader'>
-      <Loader type='ThreeDots' color='green' height={30} wight={50} />
+    <div className="loader-container" data-testid="loader">
+      <Loader type="ThreeDots" color="green" height={30} wight={50} />
     </div>
   )
 
   const isfailureView = () => (
-    <div className='loader-container'>
+    <div className="loader-container">
       <h1>Something went Wrong!</h1>
       <p>Sorry, we cannot get data</p>
-      <button type='button' className='failureButton'>
+      <button type="button" className="failureButton">
         Try Again
       </button>
     </div>
@@ -85,24 +65,24 @@ const TopRatedMovies = () => {
 
   const successView = () => {
     return (
-      <div className='popular-container'>
-        <div className='popular-body'>
-          {topRated.topRatedData.length === 0 ? (
+      <div className="popular-container">
+        <div className="popular-body">
+          {topRatedData.length === 0 ? (
             <p>{`Not find data for ${
               searchValue === '' ? '....Nothing.....' : searchValue
             }`}</p>
           ) : (
             currentPosts.map(each => (
-              <div className='popular-poster-body' key={each.id}>
+              <div className="popular-poster-body" key={each.id}>
                 <img
                   src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
-                  alt='top-rated'
-                  className='posterImage'
+                  alt="top-rated"
+                  className="posterImage"
                 />
-                <h1 className='title'>{each.title}</h1>
-                <div className='viewDetails'>
+                <h1 className="title">{each.title}</h1>
+                <div className="viewDetails">
                   <Link to={`/movie/${each.id}`}>
-                    <button type='button' className='viewDetailsButton'>
+                    <button type="button" className="viewDetailsButton">
                       View Details
                     </button>
                   </Link>
@@ -131,47 +111,25 @@ const TopRatedMovies = () => {
   }
 
   const totalpostsLength = () => {
-    if (topRated.topRatedData === null || topRated.topRatedData === undefined) {
+    if (
+      topRatedData === null ||
+      topRatedData === undefined ||
+      topRatedData.length === 0
+    ) {
       return 1
     } else {
-      return topRated.topRatedData.length
+      return topRatedData.length
     }
   }
 
   return (
     <>
-      <div className='Search-headerSection1'>
-        <h1 className='main-Logo'>movieDB</h1>
-        <div className='search-header'>
-          <Link to='/'>
-            <h1 className='main-heading'>Popular</h1>
-          </Link>
-          <Link to='/top-rated'>
-            <h1 className='main-heading'>Top Rated</h1>
-          </Link>
-          <Link to='/upcoming'>
-            <h1 className='main-heading'>Upcoming</h1>
-          </Link>
-        </div>
-        <div className='searchBar'>
-          <input
-            role='textbox'
-            type='search'
-            className='input'
-            value={searchText}
-            onChange={searchChange}
-          />
-          <button
-            type='button'
-            className='search-icon'
-            onClick={searchDataResult}
-          >
-            Search
-          </button>
-        </div>
-      </div>
+      <Header
+        setSearchValue={setSearchValue}
+        setpopularData={settopRatedData}
+      />
       {renderResponse()}
-      <div className='pagination'>
+      <div className="pagination">
         <Pagination
           totalposts={totalpostsLength()}
           postPerPage={postPerPage}

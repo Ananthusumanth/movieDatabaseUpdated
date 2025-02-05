@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import Loader from 'react-loader-spinner'
 import Pagination from '../Pagination'
+import Header from '../Header'
 import './index.css'
 
 const apiContentResponse = {
@@ -14,11 +15,10 @@ const apiContentResponse = {
 const PopularMoviesPage = () => {
   const [popular, setPopular] = useState({
     state: apiContentResponse.initial,
-    popularData: null,
   })
   const [currentPage, setCurrentPage] = useState(1)
   const [postPerPage, setpostPerPage] = useState(6)
-  const [searchText, setSearchText] = useState('')
+  const [popularData, setpopularData] = useState(null)
   const [searchValue, setSearchValue] = useState('')
 
   useEffect(() => {
@@ -26,11 +26,13 @@ const PopularMoviesPage = () => {
     getPopularApi()
   }, [])
 
+  console.log(popularData)
+  console.log(searchValue)
   const lastPostIndex = currentPage * postPerPage
   const firstPostIndex = lastPostIndex - postPerPage
   let currentPosts
-  if (popular.popularData !== undefined && popular.popularData !== null) {
-    currentPosts = popular.popularData.slice(firstPostIndex, lastPostIndex)
+  if (popularData !== undefined && popularData !== null) {
+    currentPosts = popularData.slice(firstPostIndex, lastPostIndex)
   }
 
   const getPopularApi = async () => {
@@ -38,30 +40,11 @@ const PopularMoviesPage = () => {
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
-      setPopular({popularData: data.results, state: apiContentResponse.success})
+      setpopularData(data.results)
+      setPopular({state: apiContentResponse.success})
     } else {
       setPopular({state: apiContentResponse.isFailed})
     }
-  }
-
-  const searchDataResult = async () => {
-    setSearchValue(searchText)
-    setPopular({state: apiContentResponse.in_progress})
-    const url = `https://api.themoviedb.org/3/search/movie?api_key=232f4723165efc376cae1d6370598b57&language=en-US&query=${searchText}&page=${currentPage}`
-    const response = await fetch(url)
-    if (response.ok) {
-      const data = await response.json()
-      setPopular({
-        popularData: data.results,
-        state: apiContentResponse.success,
-      })
-    } else {
-      setPopular({state: apiContentResponse.isFailed})
-    }
-  }
-
-  const searchChange = event => {
-    setSearchText(event.target.value)
   }
 
   const isloadingView = () => (
@@ -84,7 +67,7 @@ const PopularMoviesPage = () => {
     return (
       <div className="popular-container">
         <div className="popular-body">
-          {popular.popularData.length === 0 ? (
+          {popularData.length === 0 ? (
             <p>{`Not find data for ${
               searchValue === '' ? '.....Nothing.....' : searchValue
             }`}</p>
@@ -128,45 +111,20 @@ const PopularMoviesPage = () => {
   }
 
   const totalpostsLength = () => {
-    if (popular.popularData === null || popular.popularData === undefined) {
+    if (
+      popularData === null ||
+      popularData === undefined ||
+      popularData.length === 0
+    ) {
       return 1
     } else {
-      return popular.popularData.length
+      return popularData.length
     }
   }
 
   return (
     <>
-      <div className="Search-headerSection1">
-        <h1 className="main-Logo">movieDB</h1>
-        <div className="search-header">
-          <Link to="/">
-            <h1 className="main-heading">Popular</h1>
-          </Link>
-          <Link to="/top-rated">
-            <h1 className="main-heading">Top Rated</h1>
-          </Link>
-          <Link to="/upcoming">
-            <h1 className="main-heading">Upcoming</h1>
-          </Link>
-        </div>
-        <div className="searchBar">
-          <input
-            role="textbox"
-            type="search"
-            className="input"
-            value={searchText}
-            onChange={searchChange}
-          />
-          <button
-            type="button"
-            className="search-icon"
-            onClick={searchDataResult}
-          >
-            Search
-          </button>
-        </div>
-      </div>
+      <Header setSearchValue={setSearchValue} setpopularData={setpopularData} />
       {renderResponse()}
       <div className="pagination">
         <Pagination
@@ -180,4 +138,3 @@ const PopularMoviesPage = () => {
   )
 }
 export default PopularMoviesPage
-

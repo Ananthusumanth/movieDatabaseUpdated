@@ -9,18 +9,18 @@ const Pagination = props => {
       : currentPage + 1
 
   return (
-    <div className="pagination-container">
+    <div className='pagination-container'>
       <button
-        type="button"
+        type='button'
         disabled={currentPage === 1}
         className={currentPage === 1 ? 'prevNextButtonOver' : 'prevNextButton'}
         onClick={() => setCurrentPage(currentPagePrev)}
       >
         Prev
       </button>
-      <p className="currentPage">{currentPage}</p>
+      <p className='currentPage'>{currentPage}</p>
       <button
-        type="button"
+        type='button'
         disabled={currentPage === Math.ceil(totalposts / postPerPage)}
         className={
           currentPage === Math.ceil(totalposts / postPerPage)
