@@ -20,29 +20,29 @@ const Header = props => {
   }
 
   return (
-    <div className='Search-headerSection1'>
-      <h1 className='main-Logo'>movieDB</h1>
-      <div className='search-header'>
-        <Link to='/'>
-          <h1 className='main-heading'>Popular</h1>
+    <div className="Search-headerSection1">
+      <h1 className="main-Logo">movieDB</h1>
+      <div className="search-header">
+        <Link to="/">
+          <h1 className="main-heading">Popular</h1>
         </Link>
-        <Link to='/top-rated'>
-          <h1 className='main-heading'>Top Rated</h1>
+        <Link to="/top-rated">
+          <h1 className="main-heading">Top Rated</h1>
         </Link>
-        <Link to='/upcoming'>
-          <h1 className='main-heading'>Upcoming</h1>
+        <Link to="/upcoming">
+          <h1 className="main-heading">Upcoming</h1>
         </Link>
       </div>
-      <div className='searchBar'>
+      <div className="searchBar">
         <input
-          type='search'
-          className='input'
+          type="text"
+          className="input"
           value={searchText}
           onChange={e => setSearchText(e.target.value)}
         />
         <button
-          type='button'
-          className='search-icon'
+          type="button"
+          className="search-icon"
           onClick={searchDataResult}
         >
           Search
