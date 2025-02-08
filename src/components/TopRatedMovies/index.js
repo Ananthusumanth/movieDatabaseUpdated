@@ -17,27 +17,19 @@ const TopRatedMovies = () => {
     state: apiContentResponse.initial,
   })
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(6)
+  const [postPerPage] = useState(6)
+  const [page, setpage] = useState(1)
+  const [totalpages, settotalPages] = useState('')
   const [topRatedData, settopRatedData] = useState(null)
   const [searchValue, setSearchValue] = useState('')
 
-  useEffect(() => {
-    setTopRated({state: apiContentResponse.in_progress})
-    getTopRatedApi()
-  }, [])
-
-  const lastPostIndex = currentPage * postPerPage
-  const firstPostIndex = lastPostIndex - postPerPage
-  let currentPosts
-  if (topRatedData !== undefined && topRatedData !== null) {
-    currentPosts = topRatedData.slice(firstPostIndex, lastPostIndex)
-  }
-
   const getTopRatedApi = async () => {
-    const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=${currentPage}`
+    setCurrentPage(1)
+    const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=${page}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
+      settotalPages(data.total_pages)
       settopRatedData(data.results)
       setTopRated({
         state: apiContentResponse.success,
@@ -47,54 +39,64 @@ const TopRatedMovies = () => {
     }
   }
 
+  useEffect(() => {
+    setTopRated({state: apiContentResponse.in_progress})
+    getTopRatedApi()
+  }, [page])
+
+  const lastPostIndex = currentPage * postPerPage
+  const firstPostIndex = lastPostIndex - postPerPage
+  let currentPosts
+  if (topRatedData !== undefined && topRatedData !== null) {
+    currentPosts = topRatedData.slice(firstPostIndex, lastPostIndex)
+  }
+
   const isloadingView = () => (
-    <div className='loader-container' data-testid='loader'>
-      <Loader type='ThreeDots' color='green' height={30} wight={50} />
+    <div className="loader-container" data-testid="loader">
+      <Loader type="ThreeDots" color="green" height={30} wight={50} />
     </div>
   )
 
   const isfailureView = () => (
-    <div className='loader-container'>
+    <div className="loader-container">
       <h1>Something went Wrong!</h1>
       <p>Sorry, we cannot get data</p>
-      <button type='button' className='failureButton'>
+      <button type="button" className="failureButton">
         Try Again
       </button>
     </div>
   )
 
-  const successView = () => {
-    return (
-      <div className='popular-container'>
-        <div className='popular-body'>
-          {topRatedData.length === 0 ? (
-            <p>{`Not find data for ${
-              searchValue === '' ? '....Nothing.....' : searchValue
-            }`}</p>
-          ) : (
-            currentPosts.map(each => (
-              <div className='popular-poster-body' key={each.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
-                  alt='top-rated'
-                  className='posterImage'
-                />
-                <h1 className='title'>{each.title}</h1>
-                <div className='viewDetails'>
-                  <Link to={`/movie/${each.id}`}>
-                    <button type='button' className='viewDetailsButton'>
-                      View Details
-                    </button>
-                  </Link>
-                  <p>{each.vote_average}</p>
-                </div>
+  const successView = () => (
+    <div className="popular-container">
+      <div className="popular-body">
+        {topRatedData.length === 0 ? (
+          <p>{`Not find data for ${
+            searchValue === '' ? '....Nothing.....' : searchValue
+          }`}</p>
+        ) : (
+          currentPosts.map(each => (
+            <div className="popular-poster-body" key={each.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
+                alt="top-rated"
+                className="posterImage"
+              />
+              <h1 className="title">{each.title}</h1>
+              <div className="viewDetails">
+                <Link to={`/movie/${each.id}`}>
+                  <button type="button" className="viewDetailsButton">
+                    View Details
+                  </button>
+                </Link>
+                <p>{each.vote_average}</p>
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          ))
+        )}
       </div>
-    )
-  }
+    </div>
+  )
 
   const renderResponse = () => {
     const {state} = topRated
@@ -106,7 +108,7 @@ const TopRatedMovies = () => {
       case apiContentResponse.success:
         return successView()
       default:
-        null
+        return isloadingView()
     }
   }
 
@@ -117,9 +119,8 @@ const TopRatedMovies = () => {
       topRatedData.length === 0
     ) {
       return 1
-    } else {
-      return topRatedData.length
     }
+    return topRatedData.length
   }
 
   return (
@@ -129,11 +130,14 @@ const TopRatedMovies = () => {
         setpopularData={settopRatedData}
       />
       {renderResponse()}
-      <div className='pagination'>
+      <div className="pagination">
         <Pagination
           totalposts={totalpostsLength()}
           postPerPage={postPerPage}
           setCurrentPage={setCurrentPage}
+          totalpages={totalpages}
+          setpage={setpage}
+          page={page}
           currentPage={currentPage}
         />
       </div>

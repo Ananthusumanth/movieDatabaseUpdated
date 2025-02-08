@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react'
 import Loader from 'react-loader-spinner'
-import Pagination from '../Pagination'
+import CastPagination from '../CastPagination'
 import './index.css'
 
 const apiContentResponse = {
@@ -16,12 +16,7 @@ const CastMovieDetails = props => {
     castMovieData: null,
   })
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(6)
-
-  useEffect(() => {
-    setCastMovie({state: apiContentResponse.in_progress})
-    getCastMovieApi()
-  }, [])
+  const [postPerPage] = useState(6)
 
   const getCastMovieApi = async () => {
     const {ids} = props
@@ -38,6 +33,11 @@ const CastMovieDetails = props => {
       setCastMovie({state: apiContentResponse.isFailed})
     }
   }
+
+  useEffect(() => {
+    setCastMovie({state: apiContentResponse.in_progress})
+    getCastMovieApi()
+  }, [])
 
   const lastPostIndex = currentPage * postPerPage
   const firstPostIndex = lastPostIndex - postPerPage
@@ -63,39 +63,37 @@ const CastMovieDetails = props => {
     </div>
   )
 
-  const successView = () => {
-    return (
-      <>
-        <div className="cardDetails">
-          {currentPosts.map(each => (
-            <div className="castViewDetails" key={each.id}>
-              <img
-                className="profileImg"
-                src={`https://image.tmdb.org/t/p/w500${each.profile_path}`}
-                alt="cast-profile"
-              />
-              <div>
-                <p className="names">
-                  Name : <span className="span">{each.original_name}</span>
-                </p>
-                <p className="names">
-                  Character : <span className="span">{each.character}</span>
-                </p>
-              </div>
+  const successView = () => (
+    <>
+      <div className="cardDetails">
+        {currentPosts.map(each => (
+          <div className="castViewDetails" key={each.id}>
+            <img
+              className="profileImg"
+              src={`https://image.tmdb.org/t/p/w500${each.profile_path}`}
+              alt="cast-profile"
+            />
+            <div>
+              <p className="names">
+                Name : <span className="span">{each.original_name}</span>
+              </p>
+              <p className="names">
+                Character : <span className="span">{each.character}</span>
+              </p>
             </div>
-          ))}
-        </div>
-        <div className="paginationDiv">
-          <Pagination
-            totalposts={castMovie.castMovieData.length}
-            postPerPage={postPerPage}
-            setCurrentPage={setCurrentPage}
-            currentPage={currentPage}
-          />
-        </div>
-      </>
-    )
-  }
+          </div>
+        ))}
+      </div>
+      <div className="paginationDiv">
+        <CastPagination
+          totalposts={castMovie.castMovieData.length}
+          postPerPage={postPerPage}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+        />
+      </div>
+    </>
+  )
 
   const renderResponse = () => {
     const {state} = castMovie
@@ -107,7 +105,7 @@ const CastMovieDetails = props => {
       case apiContentResponse.success:
         return successView()
       default:
-        null
+        return isloadingView()
     }
   }
 

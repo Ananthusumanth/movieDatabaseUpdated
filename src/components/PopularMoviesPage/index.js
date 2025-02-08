@@ -17,34 +17,36 @@ const PopularMoviesPage = () => {
     state: apiContentResponse.initial,
   })
   const [currentPage, setCurrentPage] = useState(1)
-  const [postPerPage, setpostPerPage] = useState(6)
+  const [postPerPage] = useState(6)
+  const [page, setpage] = useState(1)
+  const [totalpages, settotalPages] = useState('')
   const [popularData, setpopularData] = useState(null)
   const [searchValue, setSearchValue] = useState('')
 
-  useEffect(() => {
-    setPopular({state: apiContentResponse.in_progress})
-    getPopularApi()
-  }, [])
-
-  console.log(popularData)
-  console.log(searchValue)
-  const lastPostIndex = currentPage * postPerPage
-  const firstPostIndex = lastPostIndex - postPerPage
-  let currentPosts
-  if (popularData !== undefined && popularData !== null) {
-    currentPosts = popularData.slice(firstPostIndex, lastPostIndex)
-  }
-
   const getPopularApi = async () => {
-    const url = `https://api.themoviedb.org/3/movie/popular?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=${currentPage}`
+    setCurrentPage(1)
+    const url = `https://api.themoviedb.org/3/movie/popular?api_key=232f4723165efc376cae1d6370598b57&language=en-US&page=${page}`
     const response = await fetch(url)
     if (response.ok) {
       const data = await response.json()
+      settotalPages(data.total_pages)
       setpopularData(data.results)
       setPopular({state: apiContentResponse.success})
     } else {
       setPopular({state: apiContentResponse.isFailed})
     }
+  }
+
+  useEffect(() => {
+    setPopular({state: apiContentResponse.in_progress})
+    getPopularApi()
+  }, [page])
+
+  const lastPostIndex = currentPage * postPerPage
+  const firstPostIndex = lastPostIndex - postPerPage
+  let currentPosts
+  if (popularData !== undefined && popularData !== null) {
+    currentPosts = popularData.slice(firstPostIndex, lastPostIndex)
   }
 
   const isloadingView = () => (
@@ -63,38 +65,36 @@ const PopularMoviesPage = () => {
     </div>
   )
 
-  const successView = () => {
-    return (
-      <div className="popular-container">
-        <div className="popular-body">
-          {popularData.length === 0 ? (
-            <p>{`Not find data for ${
-              searchValue === '' ? '.....Nothing.....' : searchValue
-            }`}</p>
-          ) : (
-            currentPosts.map(each => (
-              <div className="popular-poster-body" key={each.id}>
-                <img
-                  src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
-                  alt="popular-poster"
-                  className="posterImage"
-                />
-                <h1 className="title">{each.title}</h1>
-                <div className="viewDetails">
-                  <Link to={`/movie/${each.id}`}>
-                    <button type="button" className="viewDetailsButton">
-                      View Details
-                    </button>
-                  </Link>
-                  <p>{each.vote_average}</p>
-                </div>
+  const successView = () => (
+    <div className="popular-container">
+      <div className="popular-body">
+        {popularData.length === 0 ? (
+          <p>{`Not find data for ${
+            searchValue === '' ? '.....Nothing.....' : searchValue
+          }`}</p>
+        ) : (
+          currentPosts.map(each => (
+            <div className="popular-poster-body" key={each.id}>
+              <img
+                src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
+                alt="popular-poster"
+                className="posterImage"
+              />
+              <h1 className="title">{each.title}</h1>
+              <div className="viewDetails">
+                <Link to={`/movie/${each.id}`}>
+                  <button type="button" className="viewDetailsButton">
+                    View Details
+                  </button>
+                </Link>
+                <p>{each.vote_average}</p>
               </div>
-            ))
-          )}
-        </div>
+            </div>
+          ))
+        )}
       </div>
-    )
-  }
+    </div>
+  )
 
   const renderResponse = () => {
     const {state} = popular
@@ -106,7 +106,7 @@ const PopularMoviesPage = () => {
       case apiContentResponse.success:
         return successView()
       default:
-        null
+        return isloadingView()
     }
   }
 
@@ -117,9 +117,8 @@ const PopularMoviesPage = () => {
       popularData.length === 0
     ) {
       return 1
-    } else {
-      return popularData.length
     }
+    return popularData.length
   }
 
   return (
@@ -131,6 +130,9 @@ const PopularMoviesPage = () => {
           totalposts={totalpostsLength()}
           postPerPage={postPerPage}
           setCurrentPage={setCurrentPage}
+          totalpages={totalpages}
+          setpage={setpage}
+          page={page}
           currentPage={currentPage}
         />
       </div>

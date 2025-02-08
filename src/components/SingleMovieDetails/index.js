@@ -17,11 +17,6 @@ const SingleMoviesDetails = props => {
   })
   const [ids, setids] = useState()
 
-  useEffect(() => {
-    setSingleMovie({state: apiContentResponse.in_progress})
-    getSingleMovieApi()
-  }, [])
-
   const getSingleMovieApi = async () => {
     const histroy = props
     const {match} = histroy
@@ -41,6 +36,11 @@ const SingleMoviesDetails = props => {
     }
   }
 
+  useEffect(() => {
+    setSingleMovie({state: apiContentResponse.in_progress})
+    getSingleMovieApi()
+  }, [])
+
   const isloadingView = () => (
     <div className="single-popular-container">
       <div className="loader-container" data-testid="loader">
@@ -59,47 +59,52 @@ const SingleMoviesDetails = props => {
     </div>
   )
 
-  const successView = () => {
-    const background = {
+  let background
+
+  if (
+    singleMovie.singleMovieData !== null &&
+    singleMovie.singleMovieData !== undefined
+  ) {
+    background = {
       backgroundImage: `url(https://image.tmdb.org/t/p/w500${singleMovie.singleMovieData.backdrop_path}`,
       backgroundSize: 'cover',
       backgroundPosition: 'center top',
     }
+  }
 
-    return (
-      <>
-        <div className="single-popular-container">
-          <div className="MoviesDetailsSection" style={background}>
-            <div className="Movie-details">
-              <h1>{singleMovie.singleMovieData.title}</h1>
-              <p>{singleMovie.singleMovieData.vote_average}</p>
-              <p>
-                {Math.floor(singleMovie.singleMovieData.runtime / 60)}H{' '}
-                {singleMovie.singleMovieData.runtime -
-                  Math.floor(singleMovie.singleMovieData.runtime / 60) * 60}
-                M
-              </p>
-              <p>{singleMovie.singleMovieData.release_date}</p>
-              <div>
-                <h1>genres</h1>
-                <ul>
-                  {singleMovie.singleMovieData.genres.map(each => {
-                    return <li key={each.id}>{each.name}</li>
-                  })}
-                </ul>
-              </div>
-              <p className="description">
-                {singleMovie.singleMovieData.overview}
-              </p>
+  const successView = () => (
+    <>
+      <div className="single-popular-container">
+        <div className="MoviesDetailsSection" style={background}>
+          <div className="Movie-details">
+            <h1>{singleMovie.singleMovieData.title}</h1>
+            <p>{singleMovie.singleMovieData.vote_average}</p>
+            <p>
+              {Math.floor(singleMovie.singleMovieData.runtime / 60)}H{' '}
+              {singleMovie.singleMovieData.runtime -
+                Math.floor(singleMovie.singleMovieData.runtime / 60) * 60}
+              M
+            </p>
+            <p>{singleMovie.singleMovieData.release_date}</p>
+            <div>
+              <h1>genres</h1>
+              <ul>
+                {singleMovie.singleMovieData.genres.map(each => (
+                  <li key={each.id}>{each.name}</li>
+                ))}
+              </ul>
             </div>
-          </div>
-          <div className="CastDetailsSection">
-            <CastMovieDetails ids={ids} />
+            <p className="description">
+              {singleMovie.singleMovieData.overview}
+            </p>
           </div>
         </div>
-      </>
-    )
-  }
+        <div className="CastDetailsSection">
+          <CastMovieDetails ids={ids} />
+        </div>
+      </div>
+    </>
+  )
 
   const renderResponse = () => {
     const {state} = singleMovie
@@ -111,7 +116,7 @@ const SingleMoviesDetails = props => {
       case apiContentResponse.success:
         return successView()
       default:
-        null
+        return isloadingView()
     }
   }
 

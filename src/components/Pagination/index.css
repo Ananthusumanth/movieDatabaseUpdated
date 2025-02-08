@@ -1,10 +1,23 @@
-.pagination-container {
+.main-pagination-container {
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+.currentPageList {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color: white;
+}
+.pageSection {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-left: 20px;
 }
 .currentPage {
   margin-left: 20px;
@@ -12,6 +25,38 @@
   font-size: 12px;
   font-weight: bold;
   font-family: Roboto;
+}
+.inActive {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: none;
+  background-color: transparent;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Roboto;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
+}
+.Active {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 12px;
+  font-weight: bold;
+  font-family: Roboto;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
+  color: white;
+  border: none;
+  background-color: green;
 }
 .prevNextButton {
   border: none;
@@ -26,6 +71,8 @@
   font-family: Roboto;
   border-radius: 5px;
   cursor: pointer;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 .prevNextButtonOver {
   border: none;
@@ -41,4 +88,6 @@
   border-radius: 5px;
   opacity: 0.5;
   cursor: not-allowed;
+  margin-left: 5px;
+  margin-right: 5px;
 }
