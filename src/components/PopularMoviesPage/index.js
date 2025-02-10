@@ -50,40 +50,40 @@ const PopularMoviesPage = () => {
   }
 
   const isloadingView = () => (
-    <div className="loader-container" data-testid="loader">
-      <Loader type="ThreeDots" color="green" height={30} wight={50} />
+    <div className='loader-container' data-testid='loader'>
+      <Loader type='ThreeDots' color='green' height={30} wight={50} />
     </div>
   )
 
   const isfailureView = () => (
-    <div className="loader-container">
+    <div className='loader-container'>
       <h1>Something went Wrong!</h1>
       <p>Sorry, we cannot get data</p>
-      <button type="button" className="failureButton">
+      <button type='button' className='failureButton'>
         Try Again
       </button>
     </div>
   )
 
   const successView = () => (
-    <div className="popular-container">
-      <div className="popular-body">
+    <div className='popular-container'>
+      <div className='popular-body'>
         {popularData.length === 0 ? (
           <p>{`Not find data for ${
             searchValue === '' ? '.....Nothing.....' : searchValue
           }`}</p>
         ) : (
           currentPosts.map(each => (
-            <div className="popular-poster-body" key={each.id}>
+            <div className='popular-poster-body' key={each.id}>
               <img
                 src={`https://image.tmdb.org/t/p/w500${each.poster_path}`}
-                alt="popular-poster"
-                className="posterImage"
+                alt='popular-poster'
+                className='posterImage'
               />
-              <h1 className="title">{each.title}</h1>
-              <div className="viewDetails">
+              <h1 className='title'>{each.title}</h1>
+              <div className='viewDetails'>
                 <Link to={`/movie/${each.id}`}>
-                  <button type="button" className="viewDetailsButton">
+                  <button type='button' className='viewDetailsButton'>
                     View Details
                   </button>
                 </Link>
@@ -125,7 +125,7 @@ const PopularMoviesPage = () => {
     <>
       <Header setSearchValue={setSearchValue} setpopularData={setpopularData} />
       {renderResponse()}
-      <div className="pagination">
+      <div className='pagination'>
         <Pagination
           totalposts={totalpostsLength()}
           postPerPage={postPerPage}
