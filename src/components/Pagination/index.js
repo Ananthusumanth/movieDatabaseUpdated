@@ -1,14 +1,8 @@
 import './index.css'
 
 const Pagination = props => {
-  const {
-    totalposts,
-    postPerPage,
-    setpage,
-    currentPage,
-    page,
-    totalpages,
-  } = props
+  const {totalposts, postPerPage, setpage, currentPage, page, totalpages} =
+    props
   const pagePrev = page === 1 ? 1 : page - 1
   const pageNext = page === totalpages ? totalpages : page + 1
 
